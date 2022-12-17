@@ -8,7 +8,7 @@
         </div>
         <button>Получить новости</button>
         <button @click="modalStore.set(true)">Добавить канал</button>
-        <button @click="removeRSS">Удалить канал</button>
+        <button @click="removeRSS" :disabled="!selectedRSS">Удалить канал</button>
     </header>
 </template>
 
@@ -28,6 +28,8 @@ function removeRSS() {
     const rssUrls = rssStore.get();
     rssUrls.splice(rssUrls.indexOf(selectedRSS.value), 1);
     rssStore.notify();
+
+    selectedRSS.value = null;
 }
 </script>
 
@@ -129,6 +131,13 @@ header {
         &:active {
             position: relative;
             top: 1px;
+        }
+
+        &:disabled {
+            pointer-events: none;
+            color: #9e9e9e;
+            background-color: #e0e0e0;
+            border-color: #9e9e9e;
         }
     }
 }
