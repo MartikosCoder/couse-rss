@@ -13,5 +13,8 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview"
+  },
+  "devDependencies": {
+    "sass": "^1.57.0"
   }
 }

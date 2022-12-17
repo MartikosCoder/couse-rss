@@ -1,14 +1,10 @@
 ---
-console.log('This runs in your terminal, not the browser!');
+import Base from '../layouts/base.astro';
+import Header from '../components/Header.vue';
+import Viewer from '../components/Viewer.vue';
+import Modal from '../components/Modal.vue';
 ---
 
-<html>
-  <body>
-    <h1>Hello, World!</h1>
-  </body>
-</html>
-<style>
-  h1 {
-    color: orange;
-  }
-</style>
+<Base title="RSS">
+    <Header />
+</Base>
