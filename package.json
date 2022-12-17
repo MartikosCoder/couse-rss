@@ -5,7 +5,9 @@
   "license": "MIT",
   "dependencies": {
     "@astrojs/vue": "^1.2.2",
+    "@nanostores/vue": "^0.6.1",
     "astro": "^1.7.1",
+    "nanostores": "^0.7.1",
     "vue": "^3.2.30"
   },
   "scripts": {

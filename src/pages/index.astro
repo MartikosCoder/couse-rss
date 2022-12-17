@@ -6,5 +6,7 @@ import Modal from '../components/Modal.vue';
 ---
 
 <Base title="RSS">
-    <Header />
+    <Header client:load />
+    <Viewer client:idle  />
+    <Modal client:idle  />
 </Base>

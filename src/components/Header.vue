@@ -1,19 +1,34 @@
 <template>
     <header>
         <div class="select">
-            <select disabled>
-                <option disabled selected>Выберите RSS канал</option>
+            <select :disabled="!urls.length" v-model="selectedRSS">
+                <option v-for="url in urls" :key="url" :value="url">{{ url }}</option>
             </select>
             <div class="select_arrow" />
         </div>
         <button>Получить новости</button>
-        <button>Добавить канал</button>
-        <button>Удалить канал</button>
+        <button @click="modalStore.set(true)">Добавить канал</button>
+        <button @click="removeRSS">Удалить канал</button>
     </header>
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue';
+import { modalStore, rssStore } from '../store/index';
 
+const urls = ref([]);
+rssStore.listen(val => {
+    urls.value = [...val];
+})
+
+const selectedRSS = ref(null)
+function removeRSS() {
+    if(!selectedRSS.value) return;
+
+    const rssUrls = rssStore.get();
+    rssUrls.splice(rssUrls.indexOf(selectedRSS.value), 1);
+    rssStore.notify();
+}
 </script>
 
 <style lang="scss" scoped>
@@ -98,7 +113,7 @@ header {
 
         display: inline-block;
         cursor: pointer;
-        
+
         font-size: 1rem;
         font-weight: 600;
 
