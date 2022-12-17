@@ -6,7 +6,7 @@
             </select>
             <div class="select_arrow" />
         </div>
-        <button>Получить новости</button>
+        <button :disabled="!selectedRSS">Получить новости</button>
         <button @click="modalStore.set(true)">Добавить канал</button>
         <button @click="removeRSS" :disabled="!selectedRSS">Удалить канал</button>
     </header>
