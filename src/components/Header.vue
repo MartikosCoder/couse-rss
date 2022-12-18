@@ -6,7 +6,7 @@
             </select>
             <div class="select_arrow" />
         </div>
-        <button :disabled="!selectedRSS">Получить новости</button>
+        <button @click="setActiveRSS" :disabled="!selectedRSS">Получить новости</button>
         <button @click="modalStore.set(true)">Добавить канал</button>
         <button @click="removeRSS" :disabled="!selectedRSS">Удалить канал</button>
     </header>
@@ -14,7 +14,7 @@
 
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import { modalStore, rssStore } from '../store/index';
+import { modalStore, urlStore, rssStore } from '../store/index';
 
 const urls = ref([]);
 onMounted(() => {
@@ -25,6 +25,12 @@ rssStore.listen(val => {
 });
 
 const selectedRSS = ref(null)
+function setActiveRSS() {
+    if(!selectedRSS.value) return;
+
+    urlStore.set(selectedRSS.value);
+}
+
 function removeRSS() {
     if(!selectedRSS.value) return;
 
@@ -32,6 +38,8 @@ function removeRSS() {
     rssUrls.splice(rssUrls.indexOf(selectedRSS.value), 1);
     localStorage.setItem('urls', JSON.stringify(rssUrls));
     rssStore.notify();
+
+    if(urlStore.get() === selectedRSS.value) urlStore.set('');
 
     selectedRSS.value = null;
 }
