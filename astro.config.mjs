@@ -3,5 +3,7 @@ import vue from "@astrojs/vue";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [vue()]
+  integrations: [vue()],
+  site: 'https://martikoscoder.github.io',
+  base: '/course-rss',
 });
