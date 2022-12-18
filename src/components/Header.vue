@@ -13,13 +13,16 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { modalStore, rssStore } from '../store/index';
 
 const urls = ref([]);
+onMounted(() => {
+    urls.value = JSON.parse(localStorage.getItem('urls') || '[]');
+});
 rssStore.listen(val => {
     urls.value = [...val];
-})
+});
 
 const selectedRSS = ref(null)
 function removeRSS() {
@@ -27,6 +30,7 @@ function removeRSS() {
 
     const rssUrls = rssStore.get();
     rssUrls.splice(rssUrls.indexOf(selectedRSS.value), 1);
+    localStorage.setItem('urls', JSON.stringify(rssUrls));
     rssStore.notify();
 
     selectedRSS.value = null;

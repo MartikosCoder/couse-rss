@@ -35,6 +35,7 @@ function addNewRSS() {
     if(rssUrls.includes(url.value)) return;
 
     rssUrls.push(url.value);
+    localStorage.setItem('urls', JSON.stringify(rssUrls));
     rssStore.notify();
 
     url.value = '';
