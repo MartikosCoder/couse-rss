@@ -19,6 +19,7 @@ import { modalStore, urlStore, rssStore } from '../store/index';
 const urls = ref([]);
 onMounted(() => {
     urls.value = JSON.parse(localStorage.getItem('urls') || '[]');
+    rssStore.set(urls.value);
 });
 rssStore.listen(val => {
     urls.value = [...val];
