@@ -2,7 +2,7 @@
     <header>
         <div class="select">
             <select :disabled="!urls.length" v-model="selectedRSS">
-                <option v-for="url in urls" :key="url" :value="url">{{ url }}</option>
+                <option v-for="url in urls" :key="url" :value="url.url">{{ url.name }}</option>
             </select>
             <div class="select_arrow" />
         </div>
@@ -36,7 +36,7 @@ function removeRSS() {
     if(!selectedRSS.value) return;
 
     const rssUrls = rssStore.get();
-    rssUrls.splice(rssUrls.indexOf(selectedRSS.value), 1);
+    rssUrls.splice(rssUrls.findIndex(rss => rss.url === selectedRSS.value), 1);
     localStorage.setItem('urls', JSON.stringify(rssUrls));
     rssStore.notify();
 

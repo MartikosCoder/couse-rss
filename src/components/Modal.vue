@@ -3,7 +3,8 @@
         <div class="modal-content">
             <span class="modal-close" @click="closeModal">&times;</span>
             <h2>Новый RSS канал</h2>
-            <input type="text" required v-model="url">
+            <label>Название: <input type="text" required v-model="name"></label>
+            <label>URL: <input type="text" required v-model="url"></label>
             <button @click="addNewRSS">Добавить</button>
         </div>
     </div>
@@ -16,6 +17,7 @@ import { useStore } from '@nanostores/vue';
 
 const isModalOpen = useStore(modalStore);
 
+const name = ref('');
 const url = ref('');
 const modal = ref();
 
@@ -29,15 +31,19 @@ function closeModal() {
 }
 
 function addNewRSS() {
-    if(!url.value) return;
+    if(!name.value || !url.value) return;
 
     const rssUrls = rssStore.get();
-    if(rssUrls.includes(url.value)) return;
+    if(rssUrls.find(rss => rss.url === url.value)) return;
 
-    rssUrls.push(url.value);
+    rssUrls.push({
+        name: name.value,
+        url: url.value
+    });
     localStorage.setItem('urls', JSON.stringify(rssUrls));
     rssStore.notify();
 
+    name.value = '';
     url.value = '';
     closeModal();
 }
@@ -91,6 +97,16 @@ function addNewRSS() {
 
     h2 {
         margin: 0 0 10px;
+    }
+
+    label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        margin-top: 10px;
+        font-size: 1.1rem;
+        font-weight: bold;
     }
 
     input {
