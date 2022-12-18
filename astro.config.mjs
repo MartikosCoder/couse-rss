@@ -5,5 +5,4 @@ import vue from "@astrojs/vue";
 export default defineConfig({
   integrations: [vue()],
   site: 'https://martikoscoder.github.io',
-  base: '/course-rss',
 });
