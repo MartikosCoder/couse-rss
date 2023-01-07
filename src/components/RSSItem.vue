@@ -1,6 +1,6 @@
 <template>
     <div class="article">
-        <h2 class="article__title">{{ item.title }} <a class="article__link" :href="item.link">Перейти к новости</a></h2>
+        <h2 class="article__title">{{ item.title }} <a v-if="item.link" class="article__link" :href="item.link">Перейти к новости</a></h2>
         <span class="article__date">Дата публикации: {{ compDate }}</span>
         <div class="article__content" v-html="item.content"></div>
     </div>

@@ -40,7 +40,7 @@ urlStore.listen(async (url) => {
                 title: item.querySelector('title').innerHTML,
                 content: item.querySelector('description').innerHTML.replace('<![CDATA[', '').replace(']]>', ''),
                 date: new Date(item.querySelector('pubDate').innerHTML),
-                link: item.querySelector('link').innerHTML
+                link: item.querySelector('link')?.innerHTML || ''
             })
         }
     } catch (error) {
