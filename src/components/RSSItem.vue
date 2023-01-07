@@ -1,6 +1,6 @@
 <template>
     <div class="article">
-        <h2 class="article__title">{{ item.title }}</h2>
+        <h2 class="article__title">{{ item.title }} <a class="article__link" :href="item.link">Перейти к новости</a></h2>
         <span class="article__date">Дата публикации: {{ compDate }}</span>
         <div class="article__content" v-html="item.content"></div>
     </div>
@@ -10,10 +10,11 @@
 import { PropType, computed } from 'vue';
 
 interface RSSItem {
-    id: String,
-    title: String,
-    content: String,
-    date: Date
+    id: string,
+    title: string,
+    content: string,
+    date: Date,
+    link: string
 }
 
 const props = defineProps({
@@ -35,6 +36,8 @@ const compDate = computed(() => props.item.date.toLocaleString())
     &__title {
         font-size: 1.4rem;
         margin: 0;
+        display: flex;
+        justify-content: space-between;
     }
 
     &__date {

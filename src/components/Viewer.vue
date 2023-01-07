@@ -33,12 +33,14 @@ urlStore.listen(async (url) => {
         title.value = xml.querySelector('channel title').innerHTML;
 
         const xml_items = xml.querySelectorAll('item');
+        console.log(xml_items);
         for (const item of xml_items) {
             items.value.push({
                 id: item.querySelector('guid').innerHTML,
                 title: item.querySelector('title').innerHTML,
                 content: item.querySelector('description').innerHTML.replace('<![CDATA[', '').replace(']]>', ''),
-                date: new Date(item.querySelector('pubDate').innerHTML)
+                date: new Date(item.querySelector('pubDate').innerHTML),
+                link: item.querySelector('link').innerHTML
             })
         }
     } catch (error) {
